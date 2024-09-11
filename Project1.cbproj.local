@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/09/10 11:25:21.000.778,=C:\Users\jcarreira.LLA\Desktop\Programation\Nouveau dossier\File1.cpp</Transaction>
+    <Transaction>2024/09/10 11:25:21.000.747,=C:\Users\jcarreira.LLA\Desktop\Programation\Nouveau dossier\Project1PCH1.h</Transaction>
+    <Transaction>2024/09/10 11:26:42.000.215,C:\Users\jcarreira.LLA\Desktop\Programation\Nouveau dossier\File1.cpp=C:\Users\jcarreira.LLA\Desktop\Programation\Serveur UDP\File1.cpp</Transaction>
+    <Transaction>2024/09/10 11:26:42.000.231,C:\Users\jcarreira.LLA\Desktop\Programation\Nouveau dossier\Project1.cbproj=C:\Users\jcarreira.LLA\Desktop\Programation\Serveur UDP\Project1.cbproj</Transaction>
+    <Transaction>2024/09/10 11:26:42.000.200,C:\Users\jcarreira.LLA\Desktop\Programation\Nouveau dossier\Project1PCH1.h=C:\Users\jcarreira.LLA\Desktop\Programation\Serveur UDP\Project1PCH1.h</Transaction>
+    <Transaction>2024/09/10 11:26:43.000.762,C:\Users\jcarreira.LLA\Desktop\Programation\Serveur UDP\Project1.cbproj=C:\Users\jcarreira.LLA\Desktop\Programation\Serveur UDP\Project1.cbproj</Transaction>
+    <Transaction>2024/09/10 11:27:40.000.629,=C:\Users\jcarreira.LLA\Desktop\Programation\Serveur UDP\IRServeurUDP.h</Transaction>
+    <Transaction>2024/09/10 11:27:40.000.613,=C:\Users\jcarreira.LLA\Desktop\Programation\Serveur UDP\IRServeurUDP.cpp</Transaction>
+  </Transactions>
+</BorlandProject>
