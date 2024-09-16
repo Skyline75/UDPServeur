@@ -13,51 +13,58 @@ using namespace   std;
 
 int main()
 {
-        std::ofstream fichier("Serveur.log");
-       while(true)
-         {
-         cout<<"----------------------------------------------------------------------------------------------"<<endl;
-         cout<<"Bienvenue dans le ServeurUDP,Taper la Commande, By CARREIRA JULIEN "<<endl<<endl;
-         string IP = "127.0.0.1";
-         int Temps = 3000000;            //3 sec
-         string Message;
-         char Tableau[1000];
-         int TailleMax = 1000;
-         IRServeurUDP Server;
+    ofstream fichier("Serveur.log", ios::app);
+    IRServeurUDP Server;
+    string Message;
+
+    if (!fichier.is_open()) {   //Creation du fichier
+        cerr << "Erreur d'ouverture du fichier !" << endl;
+        return 1;
+   }
+
+   	cout << "----------------------------------------------------------------------------------------------" << endl;
+    cout << "Bienvenue dans le ServeurUDP, Taper la Commande, By CARREIRA JULIEN " << endl << endl;
+    string IP = "127.0.0.1";
+    int Temps = 2000000; // 3 sec
+
+	    Server.OuvrirLaSocketDEcoute(8890, IP);
+        Server.RecevoirUnMessage(Message, Temps);
+        cout << "Le resultat: " << Message << endl;
+
+        fichier << Message  << endl;        //Sa ecrie dans file
+        cout << "Ecriture dans le fichier " << endl << endl;
+        cout << "----------------------------------------------------------------------------------------------" << endl<<endl;
 
 
 
-         Server.OuvrirLaSocketDEcoute(8890,IP);
-         Server.RecevoirUnMessage(Message,Temps);
-         cout<<"Le resulta"<<" "<<Message<<endl;
-         std::this_thread::sleep_for(std::chrono::seconds(5));
+        Message.insert(0,"{\"");      //Demarage du debut du fichier JSON
 
-         	if (fichier.is_open()) {
+        size_t position = 0; // pour stocker la position de ':'
 
-         		fichier << Message << endl;
-         		std::cout << "Le texte a été écrit dans le fichier." << std::endl;
-				fichier.close();
-              }
-		 cout<<"----------------------------------------------------------------------------------------------"<<endl;
-
-		}
-
-
-
-    // Vérification si le fichier est bien ouvert
-
-
-
-
-
-
+    		while ((position = Message.find(":", position)) != string::npos) {
+        		cout << "Position du : " << position << endl;
+        		// Remplacer ':' par '":"'
+        		Message.replace(position, 1, "\":\"");
+        		position += 3; // Incrémenter de 3 pour passer après '":"'
+    		}
+            cout << "----------------------------------------------------------------------------------------------" << endl<<endl;
 
 
 
 
 
-       return 0;
+
+    int Taille = Message.length(); // Variable de taile avec modification + La possition dans la ligne est importante
+    Message.replace(149,1,"\"}");
+    cout << "Message modifie: " << Message << endl;   //Affichage du Resultat
+    cin.get();
+
+
+
+    fichier.close();
+    return 0;
 }
+
 
 
 
