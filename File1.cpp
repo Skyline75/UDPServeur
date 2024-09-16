@@ -50,18 +50,30 @@ int main()
             cout << "----------------------------------------------------------------------------------------------" << endl<<endl;
 
 
-
-
-
-
     int Taille = Message.length(); // Variable de taile avec modification + La possition dans la ligne est importante
-    Message.replace(149,1,"\"}");
+    Message.replace(149,1,"\"}");  //Change le 149 par une variable avenir
     cout << "Message modifie: " << Message << endl;   //Affichage du Resultat
+
+    stringstream stimestamp;
+	int timestamp = (int)time(NULL);
+	stimestamp<<timestamp;              //Implementation de l'heure dans le future file json
+
+    cout<<"Ajoue du HEAD"<<endl;
+    string HEAD = "{\n \"donneesVol\": {\n \"nom\": \"Carreira\",\n \"numero\": \"C3B3FC\",\n \"time\": \""+ to_string(timestamp) +"\",\n \"etats\": [\n";
+
+    Message.insert(0,HEAD);
+
+
+
+
+
+
+
+
+    cout<<Message<<endl;  //Affichage du JSON
     cin.get();
-
-
-
     fichier.close();
+
     return 0;
 }
 
