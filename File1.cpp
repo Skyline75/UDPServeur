@@ -8,12 +8,14 @@
 #include <iostream>
 #include <fstream>  // Pour la gestion des fichiers
 #include <string>   // Pour utiliser std::string
+
 using namespace   std;
 
 
 int main()
 {
     ofstream fichier("Serveur.log", ios::app);
+    ofstream FichierJson("Drone.json", ios::app);
     IRServeurUDP Server;
     string Message;
 
@@ -62,18 +64,29 @@ int main()
     string HEAD = "{\n \"donneesVol\": {\n \"nom\": \"Carreira\",\n \"numero\": \"C3B3FC\",\n \"time\": \""+ to_string(timestamp) +"\",\n \"etats\": [\n";
 
     Message.insert(0,HEAD);
+    cout<<Message<<endl;  //Affichage du JSON
+    cout << "----------------------------------------------------------------------------------------------" << endl<<endl;
+    int TailleV2 = Message.length();
+    cout<<"Ajoue du LEG"<<endl;
+    string LEG = "]\n }\n}\n";
 
-
-
-
+    Message.insert(TailleV2,LEG);
 
 
 
 
     cout<<Message<<endl;  //Affichage du JSON
+
+    FichierJson << Message  << endl;
+
+
+
+
+
+
     cin.get();
     fichier.close();
-
+    FichierJson.close();
     return 0;
 }
 
