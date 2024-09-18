@@ -2,6 +2,7 @@
 #include <tchar.h>
 #include <string>
 #include "IRServeurUDP.h"
+#include "IRClientTCP.h"
 #include <chrono> // For time
 #include <thread> // For sleep
 #include <sstream>  // Pour std::istringstream
@@ -17,6 +18,8 @@ int main()
     ofstream fichier("Serveur.log", ios::app);
     ofstream FichierJson("Drone.json", ios::app);
     IRServeurUDP Server;
+    IRClientTCP Zopper;
+    string IPClient =("172.20.21.62");
     string Message;
 
     if (!fichier.is_open()) {   //Creation du fichier
@@ -46,19 +49,20 @@ int main()
     		while ((position = Message.find(":", position)) != string::npos) {
         		cout << "Position du : " << position << endl;
         		// Remplacer ':' par '":"'
-        		Message.replace(position, 1, "\":\"");
+        		Message.replace(position, 1, "\",\"");
         		position += 3; // Incrémenter de 3 pour passer après '":"'
     		}
             cout << "----------------------------------------------------------------------------------------------" << endl<<endl;
+
 
 
     int Taille = Message.length(); // Variable de taile avec modification + La possition dans la ligne est importante
     Message.replace(149,1,"\"}");  //Change le 149 par une variable avenir
     cout << "Message modifie: " << Message << endl;   //Affichage du Resultat
 
-    stringstream stimestamp;
-	int timestamp = (int)time(NULL);
-	stimestamp<<timestamp;              //Implementation de l'heure dans le future file json
+               stringstream stimestamp;
+int timestamp = (int)time(NULL);
+stimestamp<<timestamp;    //Implementation de l'heure dans le future file json
 
     cout<<"Ajoue du HEAD"<<endl;
     string HEAD = "{\n \"donneesVol\": {\n \"nom\": \"Carreira\",\n \"numero\": \"C3B3FC\",\n \"time\": \""+ to_string(timestamp) +"\",\n \"etats\": [\n";
@@ -73,13 +77,43 @@ int main()
     Message.insert(TailleV2,LEG);
 
 
+   string V2Message = "{\"donneesVol\": {"
+                   "\"nom\": \"Carreira\","
+                   "\"numero\": \"C3B3FC\","
+                   "\"time\": \"1726478219\","
+                   "\"etats\": [{"
+                   "\"pitch\":\"0\","
+                   "\"roll\":\"0\","
+                   "\"yaw\":\"0\","
+                   "\"vgx\":\"0\","
+                   "\"vgy\":\"0\","
+                   "\"vgz\":\"0\","
+                   "\"templ\":\"0\","
+                   "\"temph\":\"0\","
+                   "\"tof\":\"0\","
+                   "\"h\":\"50\","
+                   "\"bat\":\"0\","
+                   "\"baro\":\"0.00\","
+                   "\"time\":\"0\","
+                   "\"agx\":\"0.00\","
+                   "\"agy\":\"0.00\","
+                   "\"agz\":\"0.00\""
+                   "}]}}";
+
+    cout<<V2Message<<endl;  //Affichage du JSON
+
+    FichierJson << V2Message  << endl;
+
+    Zopper.SeConnecterAUnServeur(IPClient,80);
+    cout << "----------------------------------------------------------------------------------------------" << endl<<endl;
+    cout << "----------------------------------------------------------------------------------------------" << endl<<endl;
 
 
-    cout<<Message<<endl;  //Affichage du JSON
+   
 
-    FichierJson << Message  << endl;
+    cin.get();
 
-
+    Zopper.Envoyer("POST /CARR/restTello.php/vol HTTP/1.1\r\n" + V2Message);
 
 
 
@@ -89,10 +123,6 @@ int main()
     FichierJson.close();
     return 0;
 }
-
-
-
-
 
 
 

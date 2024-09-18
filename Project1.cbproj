@@ -136,6 +136,12 @@
             <BuildOrder>0</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
+        <CppCompile Include="ServeurDonneDrone.cpp">
+            <BuildOrder>4</BuildOrder>
+        </CppCompile>
+        <None Include="ServeurDonneDrone.h">
+            <BuildOrder>5</BuildOrder>
+        </None>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
